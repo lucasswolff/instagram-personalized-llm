@@ -180,7 +180,6 @@ with open("data/posts_metadata.json", "r", encoding="utf-8") as f:
 
 about_the_user = "Você é uma criadora de conteúdo dona de um estúdio de design, focada em identidade visual e postagens para Instagram."
 
-
 # --- Init Session State ---
 if "chat_history" not in st.session_state:
     st.session_state.chat_history = [
