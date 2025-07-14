@@ -3,6 +3,7 @@ import hashlib
 import json
 import numpy as np
 import faiss
+import torch
 from sentence_transformers import SentenceTransformer
 from openai import OpenAI
 
@@ -225,7 +226,9 @@ if check_password():
 
     # --- Setup ---
     client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
-    model = SentenceTransformer("paraphrase-multilingual-MiniLM-L12-v2")
+
+    torch.cuda.is_available = lambda: False
+    model = SentenceTransformer("paraphrase-multilingual-MiniLM-L12-v2", device='cpu')
 
     # Load index + metadata
     index = faiss.read_index("data/posts_index.faiss")
