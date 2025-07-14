@@ -1,3 +1,9 @@
+import os
+
+os.environ['CUDA_VISIBLE_DEVICES'] = ''
+os.environ['TORCH_HOME'] = '/tmp/torch'
+os.environ['TRANSFORMERS_CACHE'] = '/tmp/transformers'
+
 import streamlit as st
 import hashlib
 import json
@@ -228,7 +234,16 @@ if check_password():
     client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
 
     torch.cuda.is_available = lambda: False
-    model = SentenceTransformer("paraphrase-multilingual-MiniLM-L12-v2", device='cpu')
+    torch.set_default_device('cpu')
+
+    @st.cache_resource
+    def load_model():
+        return SentenceTransformer("paraphrase-multilingual-MiniLM-L12-v2", device='cpu')
+
+    model = load_model()
+
+    #model = SentenceTransformer("paraphrase-multilingual-MiniLM-L12-v2", device='cpu')
+    #model = SentenceTransformer("all-MiniLM-L6-v2", device='cpu')
 
     # Load index + metadata
     index = faiss.read_index("data/posts_index.faiss")
