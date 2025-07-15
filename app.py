@@ -242,9 +242,6 @@ if check_password():
 
     model = load_model()
 
-    #model = SentenceTransformer("paraphrase-multilingual-MiniLM-L12-v2", device='cpu')
-    #model = SentenceTransformer("all-MiniLM-L6-v2", device='cpu')
-
     # Load index + metadata
     index = faiss.read_index("data/posts_index.faiss")
     with open("data/posts_metadata.json", "r", encoding="utf-8") as f:
@@ -258,7 +255,7 @@ if check_password():
             {"role": "system", "content": about_the_user}
         ]
     if "new_post_mode" not in st.session_state:
-        st.session_state.new_post_mode = False
+        st.session_state.new_post_mode = True
 
     # --- Title ---
     st.markdown('<h1 class="custom-title">Criador de Posts para Instagram</h1>', unsafe_allow_html=True)
@@ -296,7 +293,7 @@ if check_password():
             if st.session_state.new_post_mode:
                 # Novo post: roda RAG
                 query_embedding = model.encode([user_input])[0]
-                D, I = index.search(np.array([query_embedding]).astype("float32"), k=5)
+                D, I = index.search(np.array([query_embedding]).astype("float32"), k=3)
                 examples = [posts_data[i] for i in I[0]]
 
                 # Monta prompt com exemplos
@@ -316,7 +313,7 @@ if check_password():
                 model="gpt-4o",
                 messages=st.session_state.chat_history,
                 temperature=0.8,
-                max_tokens=300
+                max_tokens=500
             )
 
             output = response.choices[0].message.content

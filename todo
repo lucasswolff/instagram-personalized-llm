@@ -1,4 +1,5 @@
-• Melhorar rag (testar k=3,5,...)
+• o historico ta com um bug que minha mensagem aparece duas vezes quando eu peço alteração
+• Melhorar rag (testar k=3,5,...) - acho que tenho que aumentar o numero de tokens (ta cortando)
 • Mehorar about_the_user
 • Melhorar rag_prompt
 • Deploy do app (fazer pelo streamlit mesmo)
