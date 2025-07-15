@@ -52,6 +52,7 @@ def check_password():
     
     return False
 
+
 # --- Main App ---
 if check_password():
     
@@ -280,9 +281,10 @@ if check_password():
             send_button = st.button("Enviar", key="send", help="Enviar mensagem")
 
     # Check if Enter was pressed in the input (simulate send button)
-    if user_input and user_input != st.session_state.get("last_input", ""):
-        st.session_state.last_input = user_input
-        send_button = True
+    # if user_input and user_input != st.session_state.get("last_input"):
+    #     st.session_state.last_input = user_input
+    #     send_button = True
+
 
     # --- Process Input ---
     if send_button:
@@ -307,10 +309,12 @@ if check_password():
             else:
                 # Ajuste: só adiciona o input
                 st.session_state.chat_history.append({"role": "user", "content": user_input})
+                
 
             # Chamada ao modelo
             response = client.chat.completions.create(
-                model="gpt-4o",
+                # model="gpt-4o",
+                model="gpt-3.5-turbo", 
                 messages=st.session_state.chat_history,
                 temperature=0.8,
                 max_tokens=500
@@ -321,6 +325,8 @@ if check_password():
 
             # Mostra resposta
             st.markdown(f'<div class="output-text">{output}</div>', unsafe_allow_html=True)
+
+
 
     # --- Chat History (Optional Display) ---
     if len(st.session_state.chat_history) > 1:

@@ -1,4 +1,9 @@
 • o historico ta com um bug que minha mensagem aparece duas vezes quando eu peço alteração
+    if send_button:
+        print('aqui')
+        
+        está sendo executado 2x quando clica em enviar
+• apagar search bar depois de enter ou botao
 • Melhorar rag (testar k=3,5,...) - acho que tenho que aumentar o numero de tokens (ta cortando)
 • Mehorar about_the_user
 • Melhorar rag_prompt
