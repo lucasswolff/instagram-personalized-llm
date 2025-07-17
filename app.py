@@ -307,8 +307,8 @@ if check_password():
 
             # Chamada ao modelo
             response = client.chat.completions.create(
-                # model="gpt-4o",
-                model="gpt-3.5-turbo", 
+                model="gpt-4o",
+                # model="gpt-3.5-turbo", 
                 messages=st.session_state.chat_history,
                 temperature=0.8,
                 max_tokens=500
