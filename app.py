@@ -280,12 +280,6 @@ if check_password():
         with button_col2:
             send_button = st.button("Enviar", key="send", help="Enviar mensagem")
 
-    # Check if Enter was pressed in the input (simulate send button)
-    # if user_input and user_input != st.session_state.get("last_input"):
-    #     st.session_state.last_input = user_input
-    #     send_button = True
-
-
     # --- Process Input ---
     if send_button:
         if user_input.strip() == "":
